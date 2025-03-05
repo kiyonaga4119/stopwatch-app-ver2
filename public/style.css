@@ -1,0 +1,79 @@
+body {
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding-top: var(--top-spacing, 20px);
+    padding-bottom: var(--bottom-spacing, 20px);
+  }
+  
+  #time {
+    font-size: 3em;
+    letter-spacing: 3px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #111;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    min-width: 280px;
+  }
+  
+  #splitTime {
+    font-size: 3em;
+    letter-spacing: 3px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #111;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    min-width: 280px;
+  }
+  
+  #laps {
+    flex-grow: 1;
+    width: 300px;
+    overflow-y: auto;
+    background: #111;
+    border-radius: 5px;
+    text-align: left;
+  }
+  
+  .lap {
+    padding: 5px 0;
+  }
+  
+  .buttons {
+    position: fixed;
+    bottom: var(--bottom-spacing, 20px);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  button {
+    width: 150px;
+    font-size: 1.2em;
+    padding: 15px 0px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  #action {
+    background: #ffc107;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.7);
+  }
+  
+  #toggle {
+    background: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
+  }
+  
