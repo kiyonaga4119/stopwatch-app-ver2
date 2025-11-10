@@ -1,6 +1,8 @@
 const socket = io();
 let elapsedTime = 0;
 let running = false;
+let lapsData = [];
+
 
 function formatTime(ms) {
     let date = new Date(ms);
@@ -12,7 +14,17 @@ function formatTime(ms) {
 
 function updateDisplay() {
     document.getElementById("time").textContent = formatTime(elapsedTime);
+    updateSplitTime();
 }
+
+
+function updateSplitTime() {
+    const splitDisplay = document.getElementById("splitTime");
+    let lastLapTime = lapsData.length > 0 ? lapsData[lapsData.length - 1].lap : 0;
+    let currentSplit = elapsedTime - lastLapTime;
+    splitDisplay.textContent = formatTime(currentSplit);
+}
+
 
 // サーバーから現在のタイムを受け取る
 socket.on("updateTime", (data) => {
@@ -24,7 +36,9 @@ socket.on("updateTime", (data) => {
 
 // サーバーからラップタイムのリストを受信
 socket.on("updateLaps", (laps) => {
-    updateLapsDisplay(laps);
+    lapsData = laps;
+    updateLapsDisplay(lapsData);
+    updateSplitTime();
 });
 
 function updateButtonState() {
@@ -74,7 +88,11 @@ function formatTimeFromMs(ms) {
 function updateLapsDisplay(laps) {
     const lapsContainer = document.getElementById("laps");
     lapsContainer.innerHTML = "";
-    laps.reverse().forEach((lapData, index) => {
+
+     // 元の laps 配列を変更しないようにコピーを作成してから反転
+     const reversedLaps = laps.slice().reverse();
+     reversedLaps.forEach((lapData, index) => {   
+    // laps.reverse().forEach((lapData, index) => {
       const lapElement = document.createElement("div");
       lapElement.className = "lap";
       let lapN = String(laps.length - index).padStart(2, "0");

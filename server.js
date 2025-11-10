@@ -75,12 +75,16 @@ io.on("connection", (socket) => {
     }
 
     socket.on("lap", (lapTime) => {
-        let lapMs = parseTimeToMs(lapTime);
-        let previousSplit = laps.length > 0 ? laps[laps.length - 1].split : 0;
-        let splitTime = lapMs - previousSplit;
+        let lapMs = parseTimeToMs(lapTime); // 現在の累積経過時間をミリ秒に変換
+        // 前回の累積ラップタイムを取得（初回は0）
+        let previousLapTime = laps.length > 0 ? laps[laps.length - 1].lap : 0;
+        // 現在の累積時間から前回の累積ラップタイムを引く
+        let splitTime = lapMs - previousLapTime;
         laps.push({ lap: lapMs, split: splitTime });
         broadcastLaps();
     });
+    
+    
 
     socket.on("disconnect", () => {
         console.log("クライアントが切断しました");
